@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+</body>
+<script type="module">
+
+
+    const getData = async () => {
+        try {
+            const resp = await fetch('https://jsonplaceholder.typicode.com/users');
+            const data = await resp.json();
+            return data
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    localStorage.clear()
+
+    const result = await getData();
+    console.log(result);
+    const body = document.querySelector('body');
+
+    result.forEach(element => {
+        body.insertAdjacentHTML('beforeend', `            
+            <h3><span>id: ${element.id}; </span>name: ${element.name}</h3>
+            `)
+        localStorage.setItem(element.id, element.name);
+
+    });
+
+</script>
+
+</html>
